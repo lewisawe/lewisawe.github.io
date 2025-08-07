@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --terminal-bg: #0a0a0a;
+  --terminal-text: #00ff00;
+  --terminal-prompt: #00ff00;
+  --terminal-command: #ffffff;
+  --terminal-link: #00ffff;
+  --terminal-link-hover: #ffffff;
+  --terminal-border: #333333;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    perspective: 1000px;
+  }
+  
+  body {
+    background-color: var(--terminal-bg);
+    color: var(--terminal-text);
+    font-family: 'JetBrains Mono', monospace;
+    transform-style: preserve-3d;
+  }
+}
+
+@layer components {
+  .terminal-prompt {
+    color: var(--terminal-prompt);
+  }
+  
+  .terminal-command {
+    color: var(--terminal-command);
+  }
+  
+  .terminal-link {
+    color: var(--terminal-link);
+    transition: color 0.3s ease;
+  }
+  
+  .terminal-link:hover {
+    color: var(--terminal-link-hover);
+  }
+  
+  .terminal-section {
+    border: 1px solid var(--terminal-border);
+    padding: 1rem;
+    margin-bottom: 2rem;
+    animation: fadeIn 0.5s ease-in-out;
+    transform-style: preserve-3d;
+  }
+  
+  /* 3D Floating Cards */
+  .floating-card {
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+  }
+  
+  .floating-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 255, 255, 0.1) 100%);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  .floating-card:hover::before {
+    opacity: 1;
+  }
+  
+  .floating-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 
+      0 20px 40px rgba(0, 255, 0, 0.2),
+      0 0 20px rgba(0, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  /* ASCII Art Headers */
+  .ascii-header {
+    position: relative;
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  .ascii-header::before {
+    content: '╔══════════════════════════════════╗';
+    display: block;
+    font-size: 0.6em;
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+    color: var(--terminal-border);
+  }
+  
+  .ascii-header::after {
+    content: '╚══════════════════════════════════╝';
+    display: block;
+    font-size: 0.6em;
+    opacity: 0.5;
+    margin-top: 0.5rem;
+    color: var(--terminal-border);
+  }
+  
+  /* Enhanced Skill Items */
+  .skill-item {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .skill-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .skill-item:hover::before {
+    left: 100%;
+  }
+  
+  /* Interactive Button Effects */
+  .interactive-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .interactive-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(0, 255, 0, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+  }
+  
+  .interactive-button:active::before {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .cursor-blink::after {
+    content: '█';
+    animation: blink 1s infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Enhanced 3D Effects */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotateX(0deg); }
+  50% { transform: translateY(-10px) rotateX(2deg); }
+}
+
+.floating-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Custom scrollbar with 3D effect */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--terminal-bg);
+  border-radius: 6px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--terminal-text), var(--terminal-link));
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 255, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, var(--terminal-link), var(--terminal-text));
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.4);
+}
